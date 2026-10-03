@@ -1,1 +1,107 @@
-
+<!DOCTYPE html>
+<html lang="vi"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Quản trị · _lkimlamdev</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
+<script src="../config.js"></script>
+<style>
+:root{--a:#7c5cff;--b:#00d4ff;--ink:#eef2ff;--sub:#a3aed0;--pn:rgba(18,23,44,.78);--line:rgba(255,255,255,.14)}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:grid;place-items:center;padding:24px 14px;font-family:"Be Vietnam Pro","Segoe UI",system-ui,sans-serif;color:var(--ink);
+background:radial-gradient(700px 500px at 10% 0%,rgba(124,92,255,.35),transparent 60%),radial-gradient(700px 500px at 100% 100%,rgba(0,212,255,.28),transparent 60%),#070b18;background-attachment:fixed}
+.ap{width:100%;max-width:440px;background:var(--pn);border:1px solid var(--line);border-radius:26px;padding:28px 24px;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 30px 80px rgba(0,0,0,.5);animation:in .6s cubic-bezier(.2,1.1,.3,1) both}
+.ap.wide{max-width:860px}
+@keyframes in{from{opacity:0;transform:translateY(30px) scale(.96)}}
+h2{margin:0 0 4px;font-size:22px;background:linear-gradient(90deg,var(--a),var(--b));-webkit-background-clip:text;background-clip:text;color:transparent}
+p.s{margin:0 0 14px;font-size:13px;color:var(--sub)}
+label{display:block;margin:12px 0 5px;font-size:11.5px;font-weight:600;letter-spacing:.05em;color:var(--sub)}
+input,textarea{width:100%;padding:11px 14px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.06);color:var(--ink);font:inherit;font-size:14px;outline:none}
+input:focus,textarea:focus{border-color:var(--b);box-shadow:0 0 0 3px rgba(0,212,255,.2)}
+input[type=color]{height:42px;padding:4px;cursor:pointer}
+button{margin-top:16px;padding:12px 22px;border:0;border-radius:99px;font:inherit;font-weight:700;font-size:14px;cursor:pointer;color:#fff;background:linear-gradient(90deg,var(--a),var(--b));transition:transform .2s,filter .2s}
+button:hover{transform:translateY(-2px);filter:brightness(1.1)}button:disabled{opacity:.5;cursor:wait}
+button.gh{background:transparent;color:var(--sub);border:1px solid var(--line)}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.ms{min-height:20px;margin-top:12px;font-size:13px;color:var(--sub)}.ms.er{color:#ff6b72}.ms.ok{color:#3ddc97}
+.top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 4px}
+.tabs button{margin:0;padding:9px 16px;font-size:13px;background:transparent;border:1px solid var(--line);color:var(--sub)}
+.tabs button.on{background:linear-gradient(90deg,var(--a),var(--b));color:#fff;border-color:transparent}
+.cols{display:grid;grid-template-columns:1fr 230px;gap:22px}
+.pv{text-align:center;padding-top:14px}.pv .q{width:190px;height:190px;margin:0 auto 10px;padding:10px;background:#fff;border-radius:18px}.pv .q svg{width:100%;height:100%}
+.pv a{color:var(--b);font-size:13px;word-break:break-all}
+details{margin-top:18px;border-top:1px dashed var(--line);padding-top:10px}summary{cursor:pointer;font-size:13px;color:var(--sub)}
+@media(max-width:700px){.cols{grid-template-columns:1fr}}
+</style></head><body>
+<div class="ap" id="lg">
+<h2>🔐 Đăng nhập quản trị</h2><p class="s">Góc học tập số · _lkimlamdev</p>
+<div class="ms er" id="cf" hidden>Chưa cấu hình Firebase. Mở file <b>config.js</b> và điền apiKey, dbUrl (xem README).</div>
+<label>TÀI KHOẢN</label><input id="u" autocomplete="username" autocapitalize="none" value="">
+<label>MẬT KHẨU</label><input id="p" type="password" autocomplete="current-password">
+<div class="ms" id="le"></div><button id="lb">Đăng nhập</button>
+</div>
+<div class="ap wide" id="ed" hidden>
+<div class="top"><div><h2>⚙️ Trang quản trị</h2><p class="s" id="who"></p></div><button class="gh" id="lo" style="margin:0">Đăng xuất</button></div>
+<div class="tabs" id="tabs"></div>
+<div class="cols"><div>
+<label>TÊN TRANG</label><input id="f-name">
+<label>ĐƯỜNG LINK (MÃ QR TRỎ TỚI ĐÂY)</label><input id="f-url" inputmode="url">
+<label>MÔ TẢ</label><textarea id="f-desc" rows="3"></textarea>
+<div class="g2"><div><label>NHÃN 1</label><input id="f-c1"></div><div><label>NHÃN 2</label><input id="f-c2"></div></div>
+<div class="g2"><div><label>NHÃN 3</label><input id="f-c3"></div><div><label>BIỂU TƯỢNG</label><input id="f-logo"></div></div>
+<div class="g2"><div><label>MÀU CHÍNH</label><input id="f-a" type="color"></div><div><label>MÀU PHỤ</label><input id="f-b" type="color"></div></div>
+<div class="row"><button id="sv">Lưu &amp; đồng bộ</button><button class="gh" id="rs">Khôi phục mặc định</button></div>
+<div class="ms" id="se"></div>
+</div>
+<div class="pv"><div class="q" id="qp"></div><a id="vw" target="_blank" rel="noopener">Xem trang</a></div></div>
+<details><summary>Đổi mật khẩu</summary><label>MẬT KHẨU MỚI (≥ 8 KÝ TỰ)</label><input id="np" type="password" autocomplete="new-password"><button id="cp">Đổi mật khẩu</button><div class="ms" id="pe"></div></details>
+</div>
+<script>
+(function(){
+var CFG=window.CFG||{},DB=(CFG.dbUrl||"").replace(/\/$/,""),KEY=CFG.apiKey||"",DOM=CFG.emailDomain||"lekimlam.com";
+var SITES={"vuihoc": {"name": "Vuihoc.vn", "url": "https://vuihoc.vn", "logo": "🎓", "a": "#2f7bff", "b": "#00d4ff", "l1": "#e4eeff", "l2": "#d8f3ff", "k1": "#070d22", "k2": "#06223a", "desc": "Nền tảng học tập trực tuyến – học vui, học hiệu quả mọi lúc mọi nơi.", "c1": "Học trực tuyến", "c2": "Mọi lúc mọi nơi", "c3": "Học mà vui"}, "sachhayonline": {"name": "SachHayOnline.com", "url": "https://sachhayonline.com", "logo": "📖", "a": "#ff6a1a", "b": "#ffc233", "l1": "#fff0e0", "l2": "#ffe3ee", "k1": "#1e0f06", "k2": "#2a0e1c", "desc": "Kho sách hay đọc trực tuyến – mở ra những trang sách bổ ích cho mỗi ngày.", "c1": "Sách hay", "c2": "Đọc trực tuyến", "c3": "Mở rộng tri thức"}, "hoclieuso": {"name": "hoclieuso.nxbgd.vn", "url": "https://hoclieuso.nxbgd.vn", "logo": "🏫", "a": "#0fb877", "b": "#8be04e", "l1": "#dcf8ea", "l2": "#f0fcd8", "k1": "#05180f", "k2": "#122308", "desc": "Học liệu số của Nhà xuất bản Giáo dục Việt Nam – tài liệu học tập cho thầy cô và học sinh.", "c1": "Học liệu số", "c2": "NXB Giáo dục VN", "c3": "Tài liệu học tập"}},ORDER=["vuihoc","sachhayonline","hoclieuso"],cur=ORDER[0],data={},tok=null,fails=0,lock=0;
+function $i(id){return document.getElementById(id);}
+function msg(id,t,k){var e=$i(id);e.textContent=t;e.className="ms"+(k?" "+k:"");}
+function ss(k,v){try{if(v===undefined)return sessionStorage.getItem(k);if(v===null)sessionStorage.removeItem(k);else sessionStorage.setItem(k,v);}catch(e){}return null;}
+if(!DB||!KEY)$i("cf").hidden=false;
+function api(url,body){return fetch(url,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)}).then(function(r){return r.json().then(function(j){if(!r.ok)throw new Error((j.error&&j.error.message)||"ERR");return j;});});}
+function setTok(j){tok={id:j.idToken||j.id_token,rf:j.refreshToken||j.refresh_token,exp:Date.now()+(parseInt(j.expiresIn||j.expires_in||"3600",10)-120)*1000,mail:j.email||(tok&&tok.mail)||""};ss("tk",JSON.stringify(tok));}
+function fresh(){if(tok&&Date.now()<tok.exp)return Promise.resolve(tok.id);
+return fetch("https://securetoken.googleapis.com/v1/token?key="+KEY,{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded"},body:"grant_type=refresh_token&refresh_token="+encodeURIComponent(tok.rf)}).then(function(r){return r.json();}).then(function(j){if(!j.id_token)throw new Error("EXPIRED");setTok(j);return tok.id;});}
+function login(){
+if(Date.now()<lock){msg("le","Thử lại sau "+Math.ceil((lock-Date.now())/1000)+" giây","er");return;}
+if(!DB||!KEY){msg("le","Chưa cấu hình Firebase trong config.js","er");return;}
+var u=$i("u").value.trim().toLowerCase(),p=$i("p").value;if(!u||!p){msg("le","Nhập tài khoản và mật khẩu","er");return;}
+var mail=u.indexOf("@")>0?u:u+"@"+DOM;$i("lb").disabled=true;msg("le","Đang đăng nhập…");
+api("https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key="+KEY,{email:mail,password:p,returnSecureToken:true}).then(function(j){
+fails=0;$i("p").value="";setTok(j);tok.mail=mail;ss("tk",JSON.stringify(tok));open();}).catch(function(e){
+fails++;if(fails>=5){lock=Date.now()+30000;fails=0;}
+var m=String(e.message);msg("le",/INVALID|NOT_FOUND|PASSWORD|CREDENTIAL/.test(m)?"Sai tài khoản hoặc mật khẩu":/TOO_MANY/.test(m)?"Thử quá nhiều lần, hãy đợi ít phút":"Không kết nối được ("+m+")","er");}).then(function(){$i("lb").disabled=false;});}
+function open(){$i("lg").hidden=true;$i("ed").hidden=false;$i("who").textContent="Đăng nhập: "+(tok.mail||"").split("@")[0];
+fetch(DB+"/sites.json",{cache:"no-store"}).then(function(r){return r.json();}).then(function(d){data=d||{};}).catch(function(){data={};}).then(function(){tabs();fill();});}
+function tabs(){var t=$i("tabs");t.textContent="";ORDER.forEach(function(k){var b=document.createElement("button");b.textContent=(data[k]&&data[k].name)||SITES[k].name;b.className=k===cur?"on":"";b.onclick=function(){cur=k;tabs();fill();};t.appendChild(b);});}
+function val(k){return Object.assign({},SITES[k],data[k]||{});}
+var F=["name","url","desc","c1","c2","c3","logo","a","b"];
+function fill(){var v=val(cur);F.forEach(function(k){$i("f-"+k).value=v[k];});msg("se","");prev();}
+function prev(){var u=$i("f-url").value.trim(),el=$i("qp");try{var q=qrcode(0,"M");q.addData(u||" ");q.make();el.innerHTML=q.createSvgTag({cellSize:4,margin:0,scalable:true});}catch(e){el.textContent="";}
+var a=$i("vw");a.href="../"+cur+"/";a.textContent="Xem trang /"+cur;}
+$i("f-url").oninput=prev;
+function save(reset){
+var o={};if(reset){o=Object.assign({},SITES[cur]);}else{F.forEach(function(k){o[k]=$i("f-"+k).value.trim();});
+if(!/^https?:\/\/[^\s]+\.[^\s]+/i.test(o.url)){msg("se","Đường link phải bắt đầu bằng http:// hoặc https://","er");return;}
+if(!o.name){msg("se","Tên trang không được để trống","er");return;}}
+["l1","l2","k1","k2"].forEach(function(k){o[k]=SITES[cur][k];});
+$i("sv").disabled=true;msg("se","Đang lưu…");
+fresh().then(function(t){return fetch(DB+"/sites/"+cur+".json?auth="+encodeURIComponent(t),{method:"PUT",headers:{"Content-Type":"application/json"},body:JSON.stringify(o)});}).then(function(r){
+if(r.status===401||r.status===403)throw new Error("DENIED");if(!r.ok)throw new Error("HTTP "+r.status);return r.json();}).then(function(j){data[cur]=j;tabs();fill();msg("se","✓ Đã lưu — trang đã cập nhật ngay","ok");}).catch(function(e){
+msg("se",e.message==="DENIED"?"Không có quyền ghi. Kiểm tra Rules của Realtime Database (xem README).":e.message==="EXPIRED"?"Phiên hết hạn, hãy đăng nhập lại.":"Lưu chưa được: "+e.message,"er");}).then(function(){$i("sv").disabled=false;});}
+$i("sv").onclick=function(){save(false);};$i("rs").onclick=function(){if(confirm("Khôi phục nội dung mặc định cho trang này?"))save(true);};
+$i("cp").onclick=function(){var n=$i("np").value;if(n.length<8){msg("pe","Mật khẩu mới cần ≥ 8 ký tự","er");return;}
+fresh().then(function(t){return api("https://identitytoolkit.googleapis.com/v1/accounts:update?key="+KEY,{idToken:t,password:n,returnSecureToken:true});}).then(function(j){setTok(j);$i("np").value="";msg("pe","✓ Đã đổi mật khẩu","ok");}).catch(function(e){msg("pe","Chưa đổi được: "+e.message,"er");});};
+$i("lo").onclick=function(){tok=null;ss("tk",null);$i("ed").hidden=true;$i("lg").hidden=false;};
+$i("lb").onclick=login;$i("p").onkeydown=$i("u").onkeydown=function(e){if(e.key==="Enter")login();};
+var old=ss("tk");if(old&&DB&&KEY){try{tok=JSON.parse(old);open();}catch(e){}}
+})();
+</script></body></html>
